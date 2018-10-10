@@ -27,7 +27,7 @@ module.exports = {
                 }
             },
             {
-                test: /\.(png|jpg|gif)$/,
+                test: /\.(png|jpg|jpeg|gif)$/,
                 loader: 'url-loader',
                 options: {
                     limit: '1000',
@@ -45,6 +45,14 @@ module.exports = {
                     },
                     "css-loader"
                 ]
+            },
+            {
+                test: /\.less$/,
+                loader: 'less-loader'
+            },
+            {
+                test: /\.(htm|html)$/,
+                use: ['html-withimg-loader']
             }
         ]
     },

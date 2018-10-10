@@ -8,3 +8,6 @@ body {
   color: #fff;
   font-family: "PingFang SC"
 }
+.test{
+  background: url('./static/1.jpeg');
+}
