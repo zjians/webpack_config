@@ -5,9 +5,12 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-module.exports = function (env, argv) {
-    console.log(env)
-    // console.log(argv)
+module.exports = function (env, arg) {
+    if (arg.mode === 'production') {
+        console.log('打包开始。。。')
+    } else {
+        console.log('开发环境。。。')
+    }
     return {
         entry: './index.js',
         output: {
@@ -71,7 +74,11 @@ module.exports = function (env, argv) {
                 },
                 {
                     test: /\.less$/,
-                    loader: 'less-loader'
+                    use: [
+                        {
+                            loader: MiniCssExtractPlugin.loader,
+                        },
+                        "css-loader", "less-loader"]
                 },
                 {
                     test: /\.(htm|html)$/,
@@ -111,8 +118,8 @@ module.exports = function (env, argv) {
             }),
             // 有些文件没经过 webpack 处理，但是我们希望它们也能出现在 build 目录下，这时就可以使用 CopyWebpackPlugin 来处理了。
             new CopyWebpackPlugin([
-                { from: './static/1.jpeg', to: 'test.jpeg' }, // 顾名思义，from 配置来源，to 配置目标路径
-                { from: 'src/*.ico', to: '*.ico' }, // 配置项可以使用 glob
+                // { from: './static/1.jpeg', to: 'test.jpeg' }, // 顾名思义，from 配置来源，to 配置目标路径
+                { from: './static/icon/*.ico', to: '*.ico' }, // 配置项可以使用 glob
                 // ...可以配置很多项复制规则
             ])
         ]
