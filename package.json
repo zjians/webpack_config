@@ -7,7 +7,9 @@
     "prebuild": "rm -rf dist",
     "build": "webpack --mode=production --config=webpack.config.js",
     "postbuild": "echo \"打包结束\"",
-    "dev": "webpack-dev-server --mode=development --config webpack.config.js"
+    "dev": "webpack-dev-server --zzz='123' --env.NODE_ENV='test123' --mode=development --config webpack.config.js",
+    "test": "webpack-dev-server --env.test --config webpack.config.js",
+    "dev:zj": "webpack-dev-server --env.NODE_ENV='zj' --config webpack.config.js"
   },
   "author": "",
   "license": "ISC",

@@ -5,11 +5,14 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const Webpack = require('webpack')
 module.exports = function (env, arg) {
-    if (arg.mode === 'production') {
-        console.log('打包开始。。。')
-    } else {
-        console.log('开发环境。。。')
+    if (arg.mode) {
+        console.log('环境:', arg.mode)
+    }
+    if (env) {
+        console.log('env:', env.NODE_ENV)
+        // console.log('env:', arg.env)
     }
     return {
         entry: './index.js',
@@ -99,6 +102,12 @@ module.exports = function (env, arg) {
             }
         },
         plugins: [
+            new Webpack.DefinePlugin({ // definePlugin 在运行时给全局设置参数，变量
+                'process.env': {
+                    NODE_ENV: JSON.stringify(env && env.NODE_ENV),
+                    MODE: JSON.stringify(arg && arg.mode)
+                }
+            }),
             new HtmlwebpackPlugin({
                 filename: "index.html",
                 template: path.resolve(__dirname, "index.html"),
