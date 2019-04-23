@@ -28,6 +28,10 @@ module.exports = function (env, arg) {
         },
         devtool: "source-map", // 开启sourceMap,方便线上调试
         resolve: { // 模块路径解析相关的配置
+            modules: [ // 依赖先从lib里找，找不到再到node_modules中找
+                path.resolve('./lib'),
+                'node_modules'
+            ],
             alias: {
                 // '@': resolve('src')
                 // utils: path.resolve(__dirname, 'src/utils/') 这是模糊匹配 意味着只要模块路径中携带了 utils 就可以被替换掉，
